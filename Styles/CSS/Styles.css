@@ -1,0 +1,256 @@
+.header {
+    position: absolute;
+    width: 100%;
+    height: 130px;
+    left: 0px;
+    top: 0px;
+    background: #F1DB10;
+}
+
+.title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 77px;
+
+    color: #000000;
+}
+
+table, h2{
+    text-align: center;
+}
+
+h4 {
+    width: 100%;
+    text-align: center;
+}
+
+
+.info-container-big {
+    width: 90%;
+    height: auto;
+    margin: 10% auto;
+    padding: 2.5%;
+    background: #f8f5f0;
+    border-radius: 20px;
+}
+
+body {
+    background-image: url(../Images/UDEM_Inicio.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.principal-container {
+    width: 100%;
+    height: 90%;
+    position: relative;
+    margin-top: 13.5%;
+    background-image: url(../Images/UDEM_Inicio.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    float: left;
+}
+
+.login-container {
+    width: 50%;
+    height: 100%;
+    margin-top: 25%;
+    margin-left: 25%;
+    padding-left: 2.5%;
+    padding-top: 2.5%;
+    padding-bottom: 5%;
+    padding-right: 2.5%;
+    background: rgba(241, 219, 16, 0.9);
+    border-radius: 20px;
+}
+
+.info-container {
+    width: 50%;
+    height: auto;
+    margin-top: 10%;
+    margin-left: 25%;
+    padding-left: 2.5%;
+    padding-top: 2.5%;
+    padding-bottom: 4%;
+    background: #f8f5f0;
+    border-radius: 20px;
+}
+
+.body-container {
+    width: 50%;
+    height: auto;
+    margin-top: 10%;
+    margin-left: 25%;
+    padding-left: 2.5%;
+    padding-top: 2.5%;
+    padding-bottom: 5%;
+    padding-right: 2.5%;
+    background: rgba(241, 219, 16, 0.9);
+    border-radius: 20px;
+    text-align: center;
+}
+
+.btn-primary {
+    position: absolute;
+    width: 400x;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 18px;
+    margin-top: 1%;
+    margin-bottom: 4%;
+}
+
+.instruction {
+    font-family: 'Inter';
+    font-style:normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.link {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 27px;
+    width: 100%;
+    text-align: center;
+    text-decoration-line: underline;
+    margin-top: 3%;
+
+    color: #1C2FD8;
+}
+
+button {
+    font-size: 20px;
+}
+
+.btn-centered {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 6%;
+}
+
+.menu-subtitle {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.list-group-app {
+    --bs-list-group-color: #212529;
+    --bs-list-group-bg: rgba(241, 219, 16, 0.9);
+    --bs-list-group-border-color: none;
+    --bs-list-group-border-width: 1px;
+    --bs-list-group-border-radius: 0.375rem;
+    --bs-list-group-item-padding-x: 1rem;
+    --bs-list-group-item-padding-y: 0.5rem;
+    --bs-list-group-action-color: #3e3f3a;
+    --bs-list-group-action-hover-color: #3e3f3a;
+    --bs-list-group-action-hover-bg: #f8f5f0;
+    --bs-list-group-action-active-color: #3e3f3a;
+    --bs-list-group-action-active-bg: #dfd7ca;
+    --bs-list-group-disabled-color: #98978b;
+    --bs-list-group-disabled-bg: #fff;
+    --bs-list-group-active-color: #3e3f3a;
+    --bs-list-group-active-bg: #f8f5f0;
+    --bs-list-group-active-border-color: #dfd7ca;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-bottom: 0;
+    border-radius: var(--bs-list-group-border-radius);
+  }
+
+.body-container-50 {
+    width: 50%;
+    height: auto;
+    float: left;
+}
+
+.bottom-container {
+    width: 100;
+    margin-top: 10%;
+}
+
+.list-group-item-app {
+    position: relative;
+    display: block;
+    padding: var(--bs-list-group-item-padding-y)
+      var(--bs-list-group-item-padding-x);
+    color: var(--bs-list-group-color);
+    text-decoration: none;
+    text-align: center;
+    background-color:  none;
+    border: var(--bs-list-group-border-width) solid
+      var(--bs-list-group-border-color);
+}
+
+.short-input {
+    width: 50%;
+}
+
+.mar-top {
+    margin-top: 4%;
+}
+
+
+.nav {
+    margin-top: 7%;
+    --bs-navbar-color: rgba(8, 8, 8, 0.952);
+}
+
+legend, h3, .centered {
+    text-align: center;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+}
+
+td {
+    width: 35%;
+}
+
+table {
+    margin: 0 auto;
+    margin-top: 3%;
+}
+
+option {
+    text-align: center;
+}
+
+.lab-esp {
+    font-size: 20px;
+}
+
+.input-login {
+    width: 50%;
+    height: 35px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 25%    ;
+}
+
+.buttonHolder{ text-align: center; }
+
+.contenedorQR{
+    display: flex;
+    justify-content: center;
+    padding: auto;
+}
