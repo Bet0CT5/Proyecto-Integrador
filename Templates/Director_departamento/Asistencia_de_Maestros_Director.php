@@ -58,56 +58,34 @@
                </tr>
              </thead>
              <tbody>
-                <tr>
-                  <td>27567</td>
-                  <td>Irving Cruz3</td>
-                  <td>784532</td>
-                  <td>SC Ciencias Computacionales</td>
-                  <td>784532</td>
-                  <td>05/04/2023</td>
-                  <td>06/04/2023</td>
-                  <td>06/04/2023</td>
-                </tr>
-                <tr>
-                  <td>27567</td>
-                  <td>Irving Cruz3</td>
-                  <td>784532</td>
-                  <td>SC Ciencias Computacionales</td>
-                  <td>784532</td>
-                  <td>05/04/2023</td>
-                  <td>06/04/2023</td>
-                  <td>06/04/2023</td>
-                </tr>
-                <tr>
-                  <td>27567</td>
-                  <td>Irving Cruz3</td>
-                  <td>784532</td>
-                  <td>SC Ciencias Computacionales</td>
-                  <td>784532</td>
-                  <td>05/04/2023</td>
-                  <td>06/04/2023</td>
-                  <td>06/04/2023</td>
-                </tr>
-                <tr>
-                  <td>27567</td>
-                  <td>Irving Cruz3</td>
-                  <td>784532</td>
-                  <td>SC Ciencias Computacionales</td>
-                  <td>784532</td>
-                  <td>05/04/2023</td>
-                  <td>06/04/2023</td>
-                  <td>06/04/2023</td>
-                </tr>
-                <tr>
-                  <td>27567</td>
-                  <td>Irving Cruz3</td>
-                  <td>784532</td>
-                  <td>SC Ciencias Computacionales</td>
-                  <td>784532</td>
-                  <td>05/04/2023</td>
-                  <td>06/04/2023</td>
-                  <td>06/04/2023</td>
-                </tr>
+             <?php
+require_once '../../phps/conexionBD.php';
+
+// Realizar la consulta en la base de datos
+$consulta = "SELECT a.id_asistencia, m.nombre_maestro, m.id_maestro, d.nombre_departamento, a.crn_grupo, a.fecha, a.presente_inicio, a.presente_final
+             FROM asistencia a
+             INNER JOIN maestro m ON a.id_maestro = m.id_maestro
+             INNER JOIN departamento_maestro dm ON m.id_maestro = dm.id_maestro
+             INNER JOIN departamento d ON dm.id_departamento = d.id_departamento
+             WHERE a.id_maestro = :id_maestro";
+$stmt = $conn->prepare($consulta);
+$stmt->bindParam(':id_maestro', $id);
+$stmt->execute();
+
+while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+  echo "<tr>";
+  echo "<td>" . $fila['id_asistencia'] . "</td>";
+  echo "<td>" . $fila['nombre_maestro'] . "</td>";
+  echo "<td>" . $fila['id_maestro'] . "</td>";
+  echo "<td>" . $fila['nombre_departamento'] . "</td>";
+  echo "<td>" . $fila['crn_grupo'] . "</td>";
+  echo "<td>" . $fila['fecha'] . "</td>";
+  echo "<td>" . $fila['presente_inicio'] . "</td>";
+  echo "<td>" . $fila['presente_final'] . "</td>";
+  echo "</tr>";
+}
+
+?>
              </tbody>
            </table>
        </div>
