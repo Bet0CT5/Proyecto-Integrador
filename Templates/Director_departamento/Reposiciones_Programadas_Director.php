@@ -62,14 +62,15 @@
              <?php
 require_once '../../phps/conexionBD.php';
 
-             $consulta = "SELECT r.id_reposicion, g.crn_grupo, m.nombre_materia, m.id_maestro, ma.nombre_maestro, r.fecha_falta, r.fecha_reposicion, r.numero_salon
+             $consulta = "SELECT r.id_reposicion, g.crn_grupo, m.nombre_materia, ma.id_maestro, ma.nombre_maestro, f.fecha, r.fecha, r.numero_salon
                                FROM reposicion r
-                               INNER JOIN falta f ON r.id_falta = f.id_falta
-                               INNER JOIN grupo g ON f.clave_materia = g.clave_materia
-                               INNER JOIN maestro ma ON ma.id_maestro = g.id_maestro
+                               INNER JOIN falta_justificada f ON r.id_falta = f.id_falta
+                               INNER JOIN grupo g ON f.crn_grupo = g.crn_grupo
+                               INNER JOIN maestro_grupo mg ON g.crn_grupo = mg.crn_grupo 
+                               INNER JOIN maestro ma ON ma.id_maestro = mg.id_maestro
                                INNER JOIN materia m ON m.clave_materia = g.clave_materia";
                                $stmt = $conn->prepare($consulta);
-$stmt->bindParam(':id_maestro', $id);
+// $stmt->bindParam(':id_maestro', $id);
 $stmt->execute();
 while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
   echo "<tr>";
@@ -78,8 +79,8 @@ while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo "<td>{$fila['nombre_materia']}</td>";
                     echo "<td>{$fila['id_maestro']}</td>";
                     echo "<td>{$fila['nombre_maestro']}</td>";
-                    echo "<td>{$fila['fecha_falta']}</td>";
-                    echo "<td>{$fila['fecha_reposicion']}</td>";
+                    echo "<td>{$fila['fecha']}</td>";
+                    echo "<td>{$fila['fecha']}</td>";
                     echo "<td>{$fila['numero_salon']}</td>";
                     echo "</tr>";
                   }
