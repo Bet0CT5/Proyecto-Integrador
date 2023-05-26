@@ -68,51 +68,30 @@
           $sql->bindValue(":id", $id);
           $sql->execute();
 
+          $mensaje = 'N/A';
+
           while($fila = $sql->fetch(PDO::FETCH_ASSOC)){
+            if($fila['presente_inicio'] == null){
+              $fila['presente_inicio'] = $mensaje;
+            }
+  
+            if($fila['presente_final'] == null){
+              $fila['presente_final'] = $mensaje;
+            }
                echo '<tr>
                   <td>'.$fila['id_asistencia'].'</td>
                   <td>'.$fila['crn_grupo'].'</td>
                   <td>'.$fila['nombre_materia'].'</td>
                   <td>'.$fila['fecha'].'</td>
-                  <td>'.substr($fila['presente_inicio'], 0, 5).'</td>
-                  <td>'.substr($fila['presente_final'], 0, 5) .'</td>
-               </tr>';
-          }
-
-
-    /*  $consulta = "SELECT a.crn_grupo, m.nombre_materia, a.presente_inicio, a.presente_final, a.fecha 
-                   FROM asistencia a
-                   INNER JOIN grupo g ON a.crn_grupo = g.crn_grupo
-                   INNER JOIN materia m ON g.clave_materia = m.clave_materia
-                   WHERE a.id_maestro = :id_maestro";
-      $asistencias = "SELECT a.crn_grupo, COUNT(a.fecha) AS Asistencia 
-                     FROM asistencia a
-                     INNER JOIN grupo g ON a.crn_grupo = g.crn_grupo
-                     INNER JOIN materia m ON g.clave_materia = m.clave_materia
-                     WHERE a.id_maestro = :id_maestro AND (a.presente_inicio!=null AND a.presente_final!=null)
-                     GROUP BY m.crn_grupo";
-      $frecuencias = "SELECT a.crn_grupo, m.nombre_materia, COUNT(a.fecha) AS Asistencia 
-                     FROM asistencia a
-                     INNER JOIN grupo g ON a.crn_grupo = g.crn_grupo
-                     INNER JOIN materia m ON g.clave_materia = m.clave_materia
-                     WHERE a.id_maestro = :id_maestro
-                     GROUP BY m.crn_grupo";
-      
-      $stmt = $conn->prepare($consulta);
-      $stmt->bindParam(':id_maestro', $id);
-      $stmt->execute();
-
-      while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
-        echo "<th scope='row'>" . $fila['crn_grupo'] . "</th>";
-        echo "<td>" . $fila['nombre_materia'] . "</td>";
-        echo "<td>" . $fila['presente_inicio'] . " - " . $fila['presente_final'] . "</td>";
-        echo "<td>" . $fila['presente_inicio'] . "</td>";
-        echo "<td>" . $fila['presente_final'] . "</td>";
-        echo "<td> Faltas o casos especiales </td>";
-        echo "</tr>";
-      }*/
-    ?>
+                  <td>'.
+                      substr($fila['presente_inicio'], 0, 5).'</td>
+                  <td>'.
+                     substr($fila['presente_final'], 0, 5)
+               .'</tr>';
+  
+  
+              }
+  ?>
   </tbody>
 </table>
         </div>
