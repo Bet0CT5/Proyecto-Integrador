@@ -86,7 +86,7 @@
                   <td>'.
                       substr($fila['presente_inicio'], 0, 5).'</td>
                   <td>'.
-                     substr($fila['presente_final'], 0, 5)
+                     substr($fila['presente_final'], 0, 5).'</td>'
                .'</tr>';
   
   
