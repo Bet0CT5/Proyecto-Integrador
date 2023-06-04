@@ -59,6 +59,14 @@
                 ON maestro_grupo.crn_grupo=grupo.crn_grupo WHERE id_maestro=:param1) AS RG
             ON RG.crn_grupo=grupo_frecuencias.crn_grupo
             WHERE sabado='S' AND hora_inicio<=:param2 AND hora_final>=:param3";
+        }else {
+            $diaConsulta = "SELECT grupo_frecuencias.crn_grupo, clave_materia, numero_salon, hora_inicio, hora_final, id_departamento 
+            FROM grupo_frecuencias INNER JOIN
+            (SELECT grupo.crn_grupo, clave_materia, numero_salon, hora_inicio, hora_final, id_departamento 
+                FROM maestro_grupo INNER JOIN grupo
+                ON maestro_grupo.crn_grupo=grupo.crn_grupo WHERE id_maestro=:param1) AS RG
+            ON RG.crn_grupo=grupo_frecuencias.crn_grupo
+            WHERE domingo='S1' AND hora_inicio<=:param2 AND hora_final>=:param3";
         }
 
         $consulta = $conn->prepare($diaConsulta);
