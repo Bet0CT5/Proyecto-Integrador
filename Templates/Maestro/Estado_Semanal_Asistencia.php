@@ -49,51 +49,67 @@
         <div class="info-container-big">
           <h2 style="text-align: center;"> Estado semanal de asistencia</h2>
           <table class="table table-hover">
-  <tbody>
-    <tr class="table-dark">
-      <td>ID</td>
-      <td>CRN</td>
-      <td>Materia</td>
-      <td>Fecha</td>
-      <td>Presente Inicio</td>
-      <td>Presente Final</td>
-    </tr>
-    <?php
-          require_once '../../phps/conexionBD.php';
+            <tbody>
+              <tr class="table-dark">
+                <td>ID</td>
+                <td>CRN</td>
+                <td>Materia</td>
+                <td>Fecha</td>
+                <td>Presente Inicio</td>
+                <td>Presente Final</td>
+              </tr>
+              <?php
+                    require_once '../../phps/conexionBD.php';
 
-          $sql = $conn->prepare("SELECT id_asistencia, asistencia.crn_grupo, nombre_materia, fecha, presente_inicio, presente_final
-          FROM asistencia INNER JOIN grupo ON asistencia.crn_grupo=grupo.crn_grupo 
-          INNER JOIN materia ON grupo.clave_materia=materia.clave_materia AND grupo.id_departamento=materia.id_departamento
-          WHERE id_maestro=:id");
-          $sql->bindValue(":id", $id);
-          $sql->execute();
+                    $query = "SELECT id_asistencia, asistencia.crn_grupo, nombre_materia, fecha, presente_inicio, presente_final
+                    FROM asistencia INNER JOIN grupo ON asistencia.crn_grupo=grupo.crn_grupo 
+                    INNER JOIN materia ON grupo.clave_materia=materia.clave_materia AND grupo.id_departamento=materia.id_departamento
+                    WHERE id_maestro=:id";
+                    $sql = $conn->prepare($query);
+                    $sql->bindValue(":id", $id);
+                    $sql->execute();
 
-          $mensaje = 'N/A';
+                    $mensaje = 'N/A';
 
-          while($fila = $sql->fetch(PDO::FETCH_ASSOC)){
-            if($fila['presente_inicio'] == null){
-              $fila['presente_inicio'] = $mensaje;
-            }
-  
-            if($fila['presente_final'] == null){
-              $fila['presente_final'] = $mensaje;
-            }
-               echo '<tr>
-                  <td>'.$fila['id_asistencia'].'</td>
-                  <td>'.$fila['crn_grupo'].'</td>
-                  <td>'.$fila['nombre_materia'].'</td>
-                  <td>'.$fila['fecha'].'</td>
-                  <td>'.
-                      substr($fila['presente_inicio'], 0, 5).'</td>
-                  <td>'.
-                     substr($fila['presente_final'], 0, 5).'</td>'
-               .'</tr>';
-  
-  
+                    while($fila = $sql->fetch(PDO::FETCH_ASSOC)){
+                      if($fila['presente_inicio'] == null){
+                        $fila['presente_inicio'] = $mensaje;
+                      }
+            
+                      if($fila['presente_final'] == null){
+                        $fila['presente_final'] = $mensaje;
+                      }
+                        echo '<tr>
+                            <td>'.$fila['id_asistencia'].'</td>
+                            <td>'.$fila['crn_grupo'].'</td>
+                            <td>'.$fila['nombre_materia'].'</td>
+                            <td>'.$fila['fecha'].'</td>
+                            <td>'.
+                                substr($fila['presente_inicio'], 0, 5).'</td>
+                            <td>'.
+                              substr($fila['presente_final'], 0, 5).'</td>'
+                        .'</tr>';
+            
+            
+                    }
+              ?>
+            </tbody>
+          </table>
+          <form action="" method="POST">
+            <div class="btn-centered">
+                <button type="submit" class="btn btn-primary btn-lg btn-dark">Exportar a Excel</button>
+            </div>
+          </form>
+          <?php 
+              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                require_once '../../phps/ExportarExcel.php';
+                $mquery = "SELECT id_asistencia, asistencia.crn_grupo, nombre_materia, fecha, presente_inicio, presente_final
+                    FROM asistencia INNER JOIN grupo ON asistencia.crn_grupo=grupo.crn_grupo 
+                    INNER JOIN materia ON grupo.clave_materia=materia.clave_materia AND grupo.id_departamento=materia.id_departamento
+                    WHERE id_maestro=$id";
+                exportarAExcel($mquery);
               }
-  ?>
-  </tbody>
-</table>
+          ?>
         </div>
     </div>
 </body>
