@@ -4,7 +4,7 @@ require "C:\\xampp\htdocs\php\Asistencia_QR\Proyecto-Integrador\\vendor\autoload
 
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 function exportarAExcel($query) {
 
@@ -17,6 +17,19 @@ function exportarAExcel($query) {
     // Crear un nuevo archivo de Excel
     $spreadsheet = new Spreadsheet();
     $worksheet = $spreadsheet->getActiveSheet();
+
+    // Definir los estilos
+    $headerStyle = [
+        'font' => [
+            'bold' => true,
+        ],
+        'fill' => [
+            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            'startColor' => [
+                'rgb' => 'CCCCCC', // Color gris en formato hexadecimal
+            ],
+        ],
+    ];
     
     // Obtener los nombres de las columnas
     $columnNames = array();
@@ -24,7 +37,12 @@ function exportarAExcel($query) {
     if ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
         foreach ($row as $columnName => $value) {
             $columnNames[$columnIndex] = $columnName;
-            $worksheet->setCellValueByColumnAndRow($columnIndex, 1, $columnName);
+
+            // Establecer estilo de cabecera a las celdas
+            $cell = $worksheet->getCellByColumnAndRow($columnIndex, 1);
+            $cell->setValue($columnName);
+            $cell->getStyle()->applyFromArray($headerStyle);
+
             $columnIndex++;
         }
         for ($col = 1; $col <= count($row); $col++) {
@@ -41,14 +59,18 @@ function exportarAExcel($query) {
         $row++;
     }
 
-    // Guardar el archivo de Excel
-    $excelFilename = 'output.xlsx';
-    $writer = new Xlsx($spreadsheet);
-    $writer->save($excelFilename);
-    
-    // Cerrar la conexion previamente realizada
-    $sql = null;
+    // Guardar el archivo de Excel en una ubicación temporal
+    $excelFilename = "output.xlsx";
 
-    $mensaje = "Los datos se han exportado exitosamente a $excelFilename";
-    echo "<script>alert('$mensaje')</script>";
+    // Enviar el archivo para descargar
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="' . $excelFilename . '"');
+    header('Cache-Control: max-age=0');
+
+    $writer->save('php://output');
+    
+    exit;
 }
+
+?>
