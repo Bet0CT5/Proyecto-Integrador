@@ -2,6 +2,15 @@
   
   require_once '../../phps/Carga_variables.php';
 
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once '../../phps/ExportarExcel.php';
+    $mquery = "SELECT id_asistencia, asistencia.crn_grupo, nombre_materia, fecha, presente_inicio, presente_final
+        FROM asistencia INNER JOIN grupo ON asistencia.crn_grupo=grupo.crn_grupo 
+        INNER JOIN materia ON grupo.clave_materia=materia.clave_materia AND grupo.id_departamento=materia.id_departamento
+        WHERE id_maestro=$id";
+    exportarAExcel($mquery);
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,16 +109,7 @@
                 <button type="submit" class="btn btn-primary btn-lg btn-dark">Exportar a Excel</button>
             </div>
           </form>
-          <?php 
-              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once '../../phps/ExportarExcel.php';
-                $mquery = "SELECT id_asistencia, asistencia.crn_grupo, nombre_materia, fecha, presente_inicio, presente_final
-                    FROM asistencia INNER JOIN grupo ON asistencia.crn_grupo=grupo.crn_grupo 
-                    INNER JOIN materia ON grupo.clave_materia=materia.clave_materia AND grupo.id_departamento=materia.id_departamento
-                    WHERE id_maestro=$id";
-                exportarAExcel($mquery);
-              }
-          ?>
+          
         </div>
     </div>
 </body>
